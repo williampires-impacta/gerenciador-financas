@@ -83,18 +83,18 @@ export function App() {
     <div style={{ padding: '2rem', fontFamily: 'sans-serif', maxWidth: '700px', margin: '0 auto' }}>
       <h1 style={{ textAlign: 'center' }}>Gerenciador Financeiro</h1>
 
-      {/* --- BLOCO DOS CARTÕES DE RESUMO (ENTRADAS, SAÍDAS E SALDO TOTAL) --- */}
+      {/* BLOCO DOS CARTÕES DE SALDO (ENTRADAS, SAÍDAS E SALDO TOTAL) */}
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '1rem', marginBottom: '2rem' }}>
         
         {/* Cartão 1: Entradas */}
         <div style={{ background: '#e6fffa', padding: '1rem', borderRadius: '8px', border: '1px solid #b2f5ea' }}>
-          <span style={{ fontSize: '0.9rem', color: '#234e52' }}>Entradas</span>
+          <span style={{ fontSize: '0.9rem', color: '#234e52' }}>Receitas</span>
           <h2 style={{ color: '#276749', margin: '0.5rem 0 0 0' }}>{formatCurrency(summary.income)}</h2>
         </div>
 
         {/* Cartão 2: Saídas */}
         <div style={{ background: '#fff5f5', padding: '1rem', borderRadius: '8px', border: '1px solid #fed7d7' }}>
-          <span style={{ fontSize: '0.9rem', color: '#742a2a' }}>Saídas</span>
+          <span style={{ fontSize: '0.9rem', color: '#742a2a' }}>Despesas</span>
           <h2 style={{ color: '#9b2c2c', margin: '0.5rem 0 0 0' }}>{formatCurrency(summary.expense)}</h2>
         </div>
 
@@ -131,22 +131,26 @@ export function App() {
           onChange={(e) => setAmount(e.target.value)} 
           style={{ padding: '0.5rem' }}
         />
-        <input 
-          placeholder="Categoria" 
-          value={category} 
-          onChange={(e) => setCategory(e.target.value)} 
-          style={{ padding: '0.5rem' }}
-        />
-        <select value={type} onChange={(e) => setType(e.target.value)} style={{ padding: '0.5rem' }}>
-          <option value="INCOME">Entrada (+)</option>
-          <option value="EXPENSE">Saída (-)</option>
+        <select value={category} onChange={(e) => setCategory(e.target.value)} style={{ padding: '0.5rem' }}> 
+          <option value="">Selecione uma categoria</option>
+          <option value="GROCERIES">Mercado </option>
+          <option value="DRUGSTORE">Farmácia </option>
+          <option value="HOUSEBILLS">Gastos com moradia </option>
+          <option value="EXTRA">Gastos extraordinários </option>
+          <option value="SHOPPING">Compras desnecessárias </option>
         </select>
+
+        <select value={type} onChange={(e) => setType(e.target.value)} style={{ padding: '0.5rem' }}>
+          <option value="INCOME">Receita (+)</option>
+          <option value="EXPENSE">Despesa (-)</option>
+        </select>
+
         <button type="submit" style={{ padding: '0.75rem', background: '#3182ce', color: '#fff', border: 'none', borderRadius: '4px', cursor: 'pointer' }}>
           Adicionar Transação
         </button>
       </form>
 
-      {/* --- LISTA DE TRANSAÇÕES --- */}
+      {/* LISTA DE TRANSAÇÕES */}
       <h3>Histórico</h3>
       <ul style={{ listStyle: 'none', padding: 0 }}>
         {transactions.map((t) => (
